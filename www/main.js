@@ -45,6 +45,6 @@ $(document).ready(function () {
         eel.playassitantsound()
         $("#Oval").attr("hidden", true);
         $("#siriwave").attr("hidden", false);
-
+        eel.allCommands()()
     });
 });
