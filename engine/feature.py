@@ -7,6 +7,7 @@ import subprocess
 import time
 import eel
 import webbrowser
+import hugchat
 import pvporcupine
 import pyaudio
 import pyautogui
@@ -113,7 +114,7 @@ def hotword():
 # find contacts
 def findContact(query):
 
-    words_to_remove = [ASSISTANT_NAME, 'make', 'a', 'to','tu',
+    words_to_remove = [ASSISTANT_NAME, 'make', 'a', 'to', 'tu',
                        'phone', 'call', 'send', 'message', 'wahtsapp', 'video']
     query = remove_words(query, words_to_remove)
 
@@ -171,3 +172,51 @@ def whatsApp(mobile_no, message, flag, name):
 
     pyautogui.hotkey('enter')
     speak(jarvis_message)
+
+# chat bot
+
+
+# def chatBot(query):
+#     user_input = query.lower()
+#     chatbot = hugchat.ChatBot(cookie_path="engine\cookies.json")
+#     id = chatbot.new_conversation()
+#     chatbot.change_conversation(id)
+#     response = chatbot.chat(user_input)
+#     print(response)
+#     speak(response)
+#     return response
+
+# android automation
+
+
+def makeCall(name, mobileNo):
+    mobileNo = mobileNo.replace(" ", "")
+    speak("Calling "+name)
+    command = 'adb shell am start -a android.intent.action.CALL -d tel:'+mobileNo
+    os.system(command)
+
+
+# to send message
+# def sendMessage(message, mobileNo, name):
+#     from engine.helper import replace_spaces_with_percent_s, goback, keyEvent, tapEvents, adbInput
+#     message = replace_spaces_with_percent_s(message)
+#     mobileNo = replace_spaces_with_percent_s(mobileNo)
+#     speak("sending message")
+#     goback(4)
+#     time.sleep(1)
+#     keyEvent(3)
+#     # open sms app
+#     tapEvents(136, 2220)
+#     # start chat
+#     tapEvents(819, 2192)
+#     # search mobile no
+#     adbInput(mobileNo)
+#     # tap on name
+#     tapEvents(601, 574)
+#     # tap on input
+#     tapEvents(390, 2270)
+#     # message
+#     adbInput(message)
+#     # send
+#     tapEvents(957, 1397)
+#     speak("message send successfully to "+name)

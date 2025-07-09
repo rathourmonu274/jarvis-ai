@@ -80,8 +80,8 @@ $(document).ready(function () {
 
     // toogle fucntion to hide and display mic and send button 
     function ShowHideButton(message) {
-        
-        
+
+
         if (message.length == 0) {
             $("#MicBtn").attr('hidden', false);
             $("#SendBtn").attr('hidden', true);
@@ -97,7 +97,7 @@ $(document).ready(function () {
     $("#chatbox").keyup(function () {
 
         let message = $("#chatbox").val();
-        console.log("joojjj",message, $("#chatbox"));
+        console.log("joojjj", message, $("#chatbox"));
         ShowHideButton(message)
 
     });
@@ -110,6 +110,16 @@ $(document).ready(function () {
 
     });
 
-    //  ShowHideButton("hello world")
+    // enter press event handler on chat box
+    $("#chatbox").keypress(function (e) {
+        key = e.which;
+        if (key == 13) {
+            let message = $("#chatbox").val()
+            PlayAssistant(message)
+        }
+    });
+
+
+
 
 });
