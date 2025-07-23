@@ -2,6 +2,7 @@ import pyttsx3
 import speech_recognition as sr
 import eel
 import time
+import os
 
 
 def speak(text):
@@ -19,7 +20,7 @@ def speak(text):
 # it is the speaker of the program.
 
 
-@eel.expose
+# @eel.expose
 def takecommand():
 
     r = sr.Recognizer()
@@ -29,7 +30,7 @@ def takecommand():
         eel.DisplayMessage('say something....')
         r.pause_threshold = 1
         r.adjust_for_ambient_noise(source)
-        audio = r.listen(source, 5, 4)
+        audio = r.listen(source, 6, 5)
     try:
         print('recognizing')
         eel.DisplayMessage('recognizing....')
@@ -94,8 +95,9 @@ def allCommands(message=1):
                         flag = 'video call'
 
                     whatsApp(contact_no, query, flag, name)
-        else:
-            print("not run")
+            else:
+                  from engine.feature import chatBot
+        chatBot(query)
     except:
         print("error")
 

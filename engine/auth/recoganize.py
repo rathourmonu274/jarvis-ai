@@ -18,10 +18,10 @@ def AuthenticateFace():
     font = cv2.FONT_HERSHEY_SIMPLEX  # denotes the font type
 
 
-    id = 2  # number of persons you want to Recognize
+    id = 2 # number of persons you want to Recognize
 
 
-    names = ['', 'monu']  # names, leave first empty bcz counter starts from 0
+    names = ['', 'Monu']  # names, leave first empty bcz counter starts from 0
 
 
     cam = cv2.VideoCapture(0, cv2.CAP_DSHOW)  # cv2.CAP_DSHOW to remove warning
@@ -74,7 +74,7 @@ def AuthenticateFace():
 
         k = cv2.waitKey(10) & 0xff  # Press 'ESC' for exiting video
         if k == 27:
-            break
+           break
         if flag == 1:
             break
             
@@ -84,3 +84,5 @@ def AuthenticateFace():
     cam.release()
     cv2.destroyAllWindows()
     return flag
+
+
