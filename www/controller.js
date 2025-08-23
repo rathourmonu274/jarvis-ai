@@ -1,14 +1,12 @@
 $(document).ready(function () {
 
-
-
     // Display Speak Message
     eel.expose(DisplayMessage)
     function DisplayMessage(message) {
 
         $(".siri-message li:first").text(message);
         $('.siri-message').textillate('start');
-
+        
     }
 
     // Display hood
@@ -49,7 +47,6 @@ $(document).ready(function () {
 
     }
 
-
     // Hide Loader and display Face Auth animation
     eel.expose(hideLoader)
     function hideLoader() {
@@ -74,7 +71,7 @@ $(document).ready(function () {
         $("#HelloGreet").attr("hidden", false);
 
     }
-    
+
     // Hide Start Page and display blob
     eel.expose(hideStart)
     function hideStart() {
@@ -90,4 +87,6 @@ $(document).ready(function () {
         }, 1000)
     }
 
-});    
+});
+
+

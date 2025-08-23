@@ -194,7 +194,6 @@
                                         </g>
                                     </g>
                                 </svg>
-
                                 <!--outter center-->
                                 <svg style="--i:3;">
                                     <g id="outter-center">
@@ -245,20 +244,31 @@
 
                             </div>
                             <div id="FaceAuth" class="mb-4" hidden>
-                                <lottie-player src="https://assets2.lottiefiles.com/temp/lf20_XcJCfR.json"
+                                <!-- <lottie-player src="https://assets2.lottiefiles.com/temp/lf20_XcJCfR.json"
                                     background="transparent" speed="1" style="width: 300px; height: 300px;" loop
-                                    autoplay></lottie-player>
+                                    autoplay></lottie-player> -->
+                                <script src="https://unpkg.com/@lottiefiles/dotlottie-wc@0.6.2/dist/dotlottie-wc.js"
+                                    type="module"></script><dotlottie-wc
+                                    src="https://lottie.host/beeffb77-3558-4bdb-8f99-9805eb632296/8tNuvt3PHH.lottie"
+                                    speed="1" style="width: 550px; height: 300px" mode="forward" loop autoplay
+                                    backgroundColor="#000000"></dotlottie-wc>
                             </div>
                             <div id="FaceAuthSuccess" class="mb-4" hidden>
-                                <lottie-player src="https://assets1.lottiefiles.com/packages/lf20_lk80fpsm.json"
+                                <!-- <lottie-player src="https://assets1.lottiefiles.com/packages/lf20_lk80fpsm.json"
                                     background="transparent" speed="1" style="width: 300px; height: 300px;" loop
-                                    autoplay></lottie-player>
+                                    autoplay></lottie-player> -->
+                                <script src="https://unpkg.com/@lottiefiles/dotlottie-wc@0.6.2/dist/dotlottie-wc.js"
+                                    type="module"></script><dotlottie-wc
+                                    src="https://lottie.host/07c72a08-243d-4041-aeba-fb40f8bfb117/lX0WtqZI7r.lottie"
+                                    speed="1" style="width: 600px; height: 300px" mode="forward" loop
+                                    autoplay></dotlottie-wc>
                             </div>
                             <div id="HelloGreet" class="mb-4" hidden>
-                                <lottie-player
-                                    src="https://lottie.host/f60d18d4-5199-412c-b687-e5e63ae38f75/CoqjMcJIx0.json"
-                                    background="transparent" speed="1" style="width: 300px; height: 300px;" loop
-                                    autoplay></lottie-player>
+                                <script src="https://unpkg.com/@lottiefiles/dotlottie-wc@0.6.2/dist/dotlottie-wc.js"
+                                    type="module"></script><dotlottie-wc
+                                    src="https://lottie.host/7589fe53-9968-48b8-a702-4802452352d2/MnlByAFLdM.lottie"
+                                    speed="2" style="width: 600px; height: 400px" mode="forward" loop
+                                    autoplay></dotlottie-wc>
                             </div>
                         </div>
                     </div>
@@ -271,49 +281,50 @@
         </section>
 
         <section id="Oval" class="mb-4" hidden>
-        <div class="row">
-            <div class="col-md-1"></div>
-            <div class="col-md-10">
-                <div class="d-flex justify-content-center align-items-center" style="height: 80vh;">
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-10">
+                    <div class="d-flex justify-content-center align-items-center" style="height: 80vh;">
 
-                    <canvas id="canvasOne" width="700" height="420" style="position: absolute;"></canvas>
+                        <canvas id="canvasOne" width="700" height="420" style="position: absolute;"></canvas>
 
-                    <div id="JarvisHood">
-                        <div class="square">
-                            <span class="circle"></span>
-                            <span class="circle"></span>
-                            <span class="circle"></span>
+                        <div id="JarvisHood">
+                            <div class="square">
+                                <span class="circle"></span>
+                                <span class="circle"></span>
+                                <span class="circle"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <h5 class="text-light text text-center">Ask me anything</h5>
+
+                    <div class="col-md-12 mt-4 pt-4">
+                        <div class="text-center">
+                            <div id="TextInput" class="d-flex">
+                                <input type="text" class="input-field" id="chatbox" name="chatbox"
+                                    placeholder="type here...">
+                                <button id="SendBtn" class="glow-on-hover" hidden><i class="bi bi-send"></i></button>
+                                <button id="MicBtn" class="glow-on-hover"><i class="bi bi-mic"></i></button>
+                                <!-- <button id="ChatBtn" class="glow-on-hover"><i class="bi bi-chat-dots"></i></button> -->
+                                <button id="ChatBtn" class="glow-on-hover" data-bs-toggle="offcanvas"
+                                    data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling"><i
+                                        class="bi bi-chat-dots"></i></button>
+                                <button id="SettingsBtn" class="glow-on-hover"><i class="bi bi-gear"></i></button>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <h5 class="text-light text text-center">Ask me anything</h5>
-
-                <div class="col-md-12 mt-4 pt-4">
-                    <div class="text-center">
-                        <div id="TextInput" class="d-flex">
-                            <input type="text" class="input-field" id="chatbox" name="chatbox"
-                                placeholder="type here...">
-                            <button id="SendBtn" class="glow-on-hover" hidden><i class="bi bi-send"></i></button>
-                            <button id="MicBtn" class="glow-on-hover"><i class="bi bi-mic"></i></button>
-                            <!-- <button id="ChatBtn" class="glow-on-hover"><i class="bi bi-chat-dots"></i></button> -->
-                            <button id="ChatBtn" class="glow-on-hover" data-bs-toggle="offcanvas"
-                                data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling"><i
-                                    class="bi bi-chat-dots"></i></button>
-                            <button id="SettingsBtn" class="glow-on-hover"><i class="bi bi-gear"></i></button>
-                        </div>
-                    </div>
-                </div>
+                <div class="col-md-1"></div>
             </div>
-            <div class="col-md-1"></div>
-        </div>
-        </section>
+        </section>l
         <section id="siriwave" class="mb-4" hidden>
             <div class="container">
                 <div class="row">
                     <div class="col-md-12">
                         <div class="d-flex justify-content-center align-items-center" style="height: 100vh;">
                             <div class="">
-                                <p class="text-start text-light mb-4 siri-message" style="font-size: 28px;">Hello, I am J.A.R.V.i.S</p>
+                                <p class="text-start text-light mb-4 siri-message" style="font-size: 28px;">Hello, I am
+                                    J.A.R.V.i.S</p>
                                 <div id="siri-container"></div>
                             </div>
 
@@ -335,8 +346,6 @@
 
         </div>
     </div>
-
-
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 

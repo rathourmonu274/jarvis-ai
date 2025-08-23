@@ -1,14 +1,18 @@
 import os
 import eel
+
+
 from engine.feature import *
 from engine.command import *
 from engine.auth import recoganize
 
-
+# @eel.expose
 def start():
+
     eel.init("www")
 
     playassitantsound()
+
     @eel.expose
     def init():
         subprocess.call([r'device.bat'])
@@ -19,7 +23,7 @@ def start():
             eel.hideFaceAuth()
             speak("Face Authentication successful")
             eel.hideFaceAuthSuccess()
-            speak("Hello, Welcome Monu Sir, How can i Help You")
+            speak("Hello, Welcome Sir, How can i Help You")
             eel.hideStart()
             playassitantsound()
         else:

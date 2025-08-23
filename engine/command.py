@@ -12,7 +12,7 @@ def speak(text):
     engine.setProperty('voice', voices[0].id)
     engine.setProperty("rate", 170)
     engine.setProperty('volume', 1.0)
-    eel.DisplayMessage(text)
+    eel.DisplayMessage(text)()
     engine.say(text)
     eel.receiverText(text)
     engine.runAndWait()
@@ -20,7 +20,6 @@ def speak(text):
 # it is the speaker of the program.
 
 
-# @eel.expose
 def takecommand():
 
     r = sr.Recognizer()
@@ -63,6 +62,14 @@ def allCommands(message=1):
         elif "on youtube" in query:
             from engine.feature import PlayYoutube
             PlayYoutube(query)
+        
+        elif "my fav song" in query and "on spotify" in query:
+            from engine.feature import PlayFavSongSpotify
+            PlayFavSongSpotify()
+    
+        elif "on spotify" in query:
+            from engine.feature import PlaySpotify
+            PlaySpotify(query)
 
         elif "send message" in query or "phone call" in query or "video call" in query:
             from engine.feature import findContact, whatsApp, makeCall  # sendMessage
@@ -96,8 +103,8 @@ def allCommands(message=1):
 
                     whatsApp(contact_no, query, flag, name)
             else:
-                  from engine.feature import chatBot
-        chatBot(query)
+                from engine.feature import chatBot
+            chatBot(query)
     except:
         print("error")
 

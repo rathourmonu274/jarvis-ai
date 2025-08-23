@@ -16,7 +16,7 @@ cursor.execute(query)
 # cursor.execute(query)
 
 
-# query = "INSERT INTO web_command VALUES  (null,'instagram', 'https://www.instagram.com/')"
+# query = "INSERT INTO web_command VALUES  (null,'spotify', 'https://open.spotify.com/')"
 # cursor.execute(query)
 # conn.commit()
 
@@ -46,9 +46,9 @@ cursor.execute(query)
 # conn.close()
 
 # here you can exist one by one number
-query = "INSERT INTO contacts VALUES (null,'shivam bhaiya ', '8429732031', 'null')"
-cursor.execute(query)
-conn.commit()
+# query = "INSERT INTO contacts VALUES (null,' jeetu roommate ', '8979480621', 'null')"
+# cursor.execute(query)
+# conn.commit()
 
 # query = 'radhe radhe'
 # query = query.strip().lower()

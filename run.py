@@ -10,7 +10,7 @@ def startJarvis():
     from main import start
     start()
 # To run hotword
-
+ 
 
 def listenHotword():
     # Code for process 2

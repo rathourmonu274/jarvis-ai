@@ -1,5 +1,7 @@
 import re
 import os
+from spotipy.oauth2 import SpotifyOAuth
+import spotipy
 from shlex import quote
 import sqlite3
 import struct
@@ -69,6 +71,132 @@ def PlayYoutube(query):
     search_term = extract_yt_term(query)
     speak("Playing "+search_term+" on YouTube")
     kit.playonyt(search_term)
+
+
+# FAV_SONG = "pal pal dil ke pass"
+# def PlayFavSongSpotify():
+#     speak("Playing your favourite song on Spotify")
+#     spotify_url = f"https://open.spotify.com/search/{FAV_SONG.replace(' ', '%20')}"
+#     webbrowser.open(spotify_url)
+
+
+# def PlaySpotify(query):
+#     search_term = query.replace(ASSISTANT_NAME, "").replace(
+#         "play", "").replace("on spotify", "").strip()
+#     speak("Playing " + search_term + " on Spotify")
+#     spotify_url = f"https://open.spotify.com/search/{search_term.replace(' ', '%20')}"
+#     webbrowser.open(spotify_url)
+
+# 1) Put your credentials here
+CLIENT_ID = "8d047983d0f345e3a0473bbf738823d8"
+CLIENT_SECRET = "25a94c4c05404af890d074996b1c29d7"
+REDIRECT_URI = "http://localhost:8888/callback"
+SCOPE = "user-read-playback-state,user-modify-playback-state"
+
+# 2) Global client (token cache ho jayega .spotipy_cache me)
+_sp = None
+
+
+def sp_client():
+    global _sp
+    if _sp is None:
+        _sp = spotipy.Spotify(auth_manager=SpotifyOAuth(
+            client_id=CLIENT_ID,
+            client_secret=CLIENT_SECRET,
+            redirect_uri=REDIRECT_URI,
+            scope=SCOPE,
+            open_browser=True,          # first time auth ke liye browser khulega
+            cache_path=".spotipy_cache"  # token cache
+        ))
+    return _sp
+
+# 3) Ensure active device (desktop/mobile app) to play on
+
+
+def ensure_active_device(sp):
+    devices = sp.devices().get("devices", [])
+    if devices:
+        # prefer active device
+        for d in devices:
+            if d.get("is_active"):
+                return d["id"]
+        # else pick first + transfer playback
+        target_id = devices[0]["id"]
+        sp.transfer_playback(device_id=target_id, force_play=False)
+        return target_id
+
+    # try to launch Spotify app (Windows)
+    try:
+        os.system("start spotify")
+    except:
+        pass
+
+    time.sleep(2)
+    devices = sp.devices().get("devices", [])
+    if devices:
+        target_id = devices[0]["id"]
+        sp.transfer_playback(device_id=target_id, force_play=False)
+        return target_id
+
+    return None
+
+# 4) Main autoplay function (exact song play)
+
+
+def PlaySpotifyAutoplay(song_name: str):
+    sp = sp_client()
+    try:
+        device_id = ensure_active_device(sp)
+        if not device_id:
+            speak("Open Spotify app once, then try again.")
+            return
+
+        res = sp.search(q=song_name, type="track", limit=1)
+        items = res.get("tracks", {}).get("items", [])
+        if not items:
+            speak("Sorry, I couldn't find that song on Spotify.")
+            return
+
+        track = items[0]
+        track_uri = track["uri"]
+        track_url = track["external_urls"]["spotify"]
+
+        sp.start_playback(device_id=device_id, uris=[track_uri])
+        speak(f"Playing {track['name']} on Spotify")
+    except spotipy.SpotifyException as e:
+        # 403 usually = not premium
+        try:
+            status = e.http_status
+        except:
+            status = None
+        if status == 403:
+            speak(
+                "Spotify Premium is required for autoplay via API. Opening in browser instead.")
+            webbrowser.open(track_url)
+        else:
+            speak("Something went wrong with Spotify.")
+            print("SpotifyException:", e)
+
+
+# Optional: fav song helper
+FAV_SONG = "pal pal dil ke paas"
+
+
+def PlayFavSongSpotifyAutoplay():
+    PlaySpotifyAutoplay(FAV_SONG)
+
+# (Old fallback) Only open search page—no autoplay
+
+
+def PlaySpotify(query):
+    search_term = (query.replace(ASSISTANT_NAME, "")
+                        .replace("play", "")
+                        .replace("on spotify", "")
+                        .strip())
+    speak("Opening Spotify search for " + search_term)
+    webbrowser.open(
+        f"https://open.spotify.com/search/{search_term.replace(' ', '%20')}")
+# ---------- End Spotify block ----------
 
 
 def hotword():
