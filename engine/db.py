@@ -5,8 +5,8 @@ import sqlite3
 conn = sqlite3.connect("jarvis.db")
 cursor = conn.cursor()
 
-query = "CREATE TABLE IF NOT EXISTS sys_command(id integer primary key, name VARCHAR(100), path VARCHAR(1000))"
-cursor.execute(query)
+# query = "CREATE TABLE IF NOT EXISTS sys_command(id integer primary key, name VARCHAR(100), path VARCHAR(1000))"
+# cursor.execute(query)
 
 # query = "INSERT INTO sys_command VALUES (null,'one note', 'C:\\Program Files\\Microsoft Office\\root\\Office16\\ONENOTE.exe')"
 # cursor.execute(query)
@@ -57,3 +57,10 @@ cursor.execute(query)
 #                ('%' + query + '%', query + '%'))
 # results = cursor.fetchall()
 # print(results[0][0])
+
+# Adding personal info table
+# query = "CREATE TABLE IF NOT EXISTS info(name VARCHAR(100), designation VARCHAR(50),mobileno VARCHAR(40), email VARCHAR(200), city VARCHAR(300))"
+# cursor.execute(query)
+
+# Add Column in contacts table
+# cursor.execute("ALTER TABLE contacts ADD COLUMN address VARCHAR(255)")

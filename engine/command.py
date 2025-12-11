@@ -6,7 +6,7 @@ import os
 
 
 def speak(text):
-    # text = str(text)
+    text = str(text)
     engine = pyttsx3.init()
     voices = engine.getProperty('voices')
     engine.setProperty('voice', voices[0].id)
@@ -62,11 +62,11 @@ def allCommands(message=1):
         elif "on youtube" in query:
             from engine.feature import PlayYoutube
             PlayYoutube(query)
-        
+
         elif "my fav song" in query and "on spotify" in query:
             from engine.feature import PlayFavSongSpotify
             PlayFavSongSpotify()
-    
+
         elif "on spotify" in query:
             from engine.feature import PlaySpotify
             PlaySpotify(query)

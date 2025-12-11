@@ -1,3 +1,4 @@
+import json
 import re
 import os
 from spotipy.oauth2 import SpotifyOAuth
@@ -19,6 +20,7 @@ from playsound import playsound
 from engine.command import speak
 from engine.config import ASSISTANT_NAME
 from engine.helper import extract_yt_term, remove_words
+from hugchat import hugchat
 
 conn = sqlite3.connect("jarvis.db")
 cursor = conn.cursor()
@@ -266,16 +268,16 @@ def findContact(query):
 def whatsApp(mobile_no, message, flag, name):
 
     if flag == 'message':
-        target_tab = 20
+        target_tab = 21
         jarvis_message = "message send successfully to "+name
 
     elif flag == 'call':
-        target_tab = 14
+        target_tab = 13
         message = ''
         jarvis_message = "calling to "+name
 
     else:
-        target_tab = 13
+        target_tab = 12
         message = ''
         jarvis_message = "staring video call with "+name
 
@@ -304,15 +306,15 @@ def whatsApp(mobile_no, message, flag, name):
 # chat bot
 
 
-# def chatBot(query):
-#     user_input = query.lower()
-#     chatbot = hugchat.ChatBot(cookie_path="engine\cookies.json")
-#     id = chatbot.new_conversation()
-#     chatbot.change_conversation(id)
-#     response = chatbot.chat(user_input)
-#     print(response)
-#     speak(response)
-#     return response
+def chatBot(query):
+    user_input = query.lower()
+    chatbot = hugchat.ChatBot(cookie_path="engine/cookies.json")
+    id = chatbot.new_conversation()
+    chatbot.change_conversation(id)
+    response = chatbot.chat(user_input)
+    print(response)
+    speak(response)
+    return response
 
 # android automation
 
@@ -348,3 +350,134 @@ def makeCall(name, mobileNo):
 #     # send
 #     tapEvents(957, 1397)
 #     speak("message send successfully to "+name)
+
+# import google.generativeai as genai
+# def geminai(query):
+#     try:
+#         query = query.replace(ASSISTANT_NAME, "")
+#         query = query.replace("search", "")
+#         # Set your API key
+#         genai.configure(api_key=LLM_KEY)
+
+#         # Select a model
+#         model = genai.GenerativeModel("gemini-2.0-flash")
+
+#         # Generate a response
+#         response = model.generate_content(query)
+#         filter_text = markdown_to_text(response.text)
+#         speak(filter_text)
+#     except Exception as e:
+#         print("Error:", e)
+
+
+# Settings Modal
+
+
+# Assistant name
+@eel.expose
+def assistantName():
+    name = ASSISTANT_NAME
+    return name
+
+
+@eel.expose
+def personalInfo():
+    try:
+        cursor.execute("SELECT * FROM info")
+        results = cursor.fetchall()
+        jsonArr = json.dumps(results[0])
+        eel.getData(jsonArr)
+        return 1
+    except:
+        print("no data")
+
+
+@eel.expose
+def updatePersonalInfo(name, designation, mobileno, email, city):
+    cursor.execute("SELECT COUNT(*) FROM info")
+    count = cursor.fetchone()[0]
+
+    if count > 0:
+        # Update existing record
+        cursor.execute(
+            '''UPDATE info 
+               SET name=?, designation=?, mobileno=?, email=?, city=?''',
+            (name, designation, mobileno, email, city)
+        )
+    else:
+        # Insert new record if no data exists
+        cursor.execute(
+            '''INSERT INTO info (name, designation, mobileno, email, city) 
+               VALUES (?, ?, ?, ?, ?)''',
+            (name, designation, mobileno, email, city)
+        )
+
+    conn.commit()
+    personalInfo()
+    return 1
+
+
+@eel.expose
+def displaySysCommand():
+    cursor.execute("SELECT * FROM sys_command")
+    results = cursor.fetchall()
+    jsonArr = json.dumps(results)
+    eel.displaySysCommand(jsonArr)
+    return 1
+
+
+@eel.expose
+def deleteSysCommand(id):
+    cursor.execute("DELETE FROM sys_command WHERE id = ?", (id,))
+    conn.commit()
+
+
+@eel.expose
+def addSysCommand(key, value):
+    cursor.execute(
+        '''INSERT INTO sys_command VALUES (?, ?, ?)''', (None, key, value))
+    conn.commit()
+
+
+@eel.expose
+def displayWebCommand():
+    cursor.execute("SELECT * FROM web_command")
+    results = cursor.fetchall()
+    jsonArr = json.dumps(results)
+    eel.displayWebCommand(jsonArr)
+    return 1
+
+
+@eel.expose
+def addWebCommand(key, value):
+    cursor.execute(
+        '''INSERT INTO web_command VALUES (?, ?, ?)''', (None, key, value))
+    conn.commit()
+
+
+@eel.expose
+def deleteWebCommand(id):
+    cursor.execute("DELETE FROM web_command WHERE Id = ?", (id,))
+    conn.commit()
+
+
+@eel.expose
+def displayPhoneBookCommand():
+    cursor.execute("SELECT * FROM contacts")
+    results = cursor.fetchall()
+    jsonArr = json.dumps(results)
+    eel.displayPhoneBookCommand(jsonArr)
+    return 1
+
+
+@eel.expose
+def deletePhoneBookCommand(id):
+    cursor.execute("DELETE FROM contacts WHERE Id = ?", (id,))
+    conn.commit()
+
+
+@eel.expose
+def InsertContacts(Name, MobileNo, Email, City):
+    cursor.execute(
+        '''INSERT INTO contacts VALUES (?, ?, ?, ?, ?)''', (None, Name, MobileNo, Email, City))
+    conn.commit()
